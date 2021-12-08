@@ -15,6 +15,7 @@
 import numpy as np
 import scipy.spatial
 import tensorflow as tf
+import tensorflow_addons as tfa
 
 
 """
@@ -509,7 +510,7 @@ def render_silhouette_mask(silhouette, size, segmentation=None):
     silhouette.shape.assert_has_rank(3)
     tf.compat.v1.assert_equal(silhouette.shape[2], 1)
     degree = tf.random.uniform(shape=(), minval=0, maxval=360, dtype=tf.float32)
-    silhouette_rot = tf.contrib.image.rotate(
+    silhouette_rot = tfa.image.rotate(
         silhouette, degree * np.pi / 180., interpolation='BILINEAR')
     rand_rz_ratio = tf.random.uniform(
         shape=(), minval=0.3, maxval=0.6, dtype=tf.float32)
